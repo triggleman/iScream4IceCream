@@ -12,6 +12,9 @@ import {
 import { StackNavigator } from 'react-navigation';
 
 export default class SignUp extends Component {
+  static navigationOptions = {
+    title: 'Please Sign Up',
+  };
 
   constructor(){
     super()
@@ -27,7 +30,7 @@ export default class SignUp extends Component {
 async registerUser(){
   console.log('this was clicked');
   try {
-    let response = await fetch('https://849e8859.ngrok.io/users/', {
+    let response = await fetch('https://42df16e0.ngrok.io/users/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -67,7 +70,6 @@ async registerUser(){
             onChangeText={(val) => this.setState({name: val})}
             placeholder="Name"
             returnKeyType="next"
-            autoCapitalize="none"
             autoCorrect={false}
           />
           <TextInput
@@ -111,14 +113,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: 'rgb(255, 255, 255)'
+    backgroundColor: 'rgb(255, 255, 255)',
   },
   form: {
+    marginTop: 20,
     height: 40,
     width: 300,
-    marginBottom: 10,
+    marginBottom: 5,
     borderRadius: 8,
-    backgroundColor: '#ebeeec'
+    backgroundColor: '#ebeeec',
+    paddingLeft: 10
   },
   buttonContainer: {
     margin: 10,

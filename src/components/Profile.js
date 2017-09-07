@@ -8,17 +8,20 @@ import {
   TouchableHighlight,
   FlatList,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from 'react-native';
 
 
 export default class Profile extends Component {
+  static navigationOptions = {
+    title: 'Profile',
+  };
 
   constructor(){
     super()
     this.state = {
       favorites: [],
-      del: []
     }
   }
 
@@ -27,7 +30,7 @@ export default class Profile extends Component {
   }
 
   renderList(){
-    return fetch(`https://849e8859.ngrok.io/users/${this.props.navigation.state.params.user_id}/favorites`)
+    return fetch(`https://42df16e0.ngrok.io/users/${this.props.navigation.state.params.user_id}/favorites`)
     .then((res) => res.json())
     .then((resJson) => {
       this.setState((prevState) => {
@@ -41,11 +44,22 @@ export default class Profile extends Component {
     })
   };
 
+  deleteThis(){
+    console.log('deleteThis was clicked');
+    return fetch(`https://42df16e0.ngrok.io/users/${this.props.navigation.state.params.user_id}/favorites/:id`)
+    .then((res) => res.json())
+    .then((resJson) => {
+      console.log(resJson);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  };
+
   render() {
     const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text>{this.props.navigation.state.params.name}</Text>
         <View style={styles.search}>
           <TouchableHighlight
             onPress={() => navigate('Search', {user_id: this.props.navigation.state.params.user_id})}
@@ -55,7 +69,7 @@ export default class Profile extends Component {
           </TouchableHighlight>
         </View>
         <View style={styles.favoritescontainer}>
-          <Text style={styles.favoritestitle}>Favorites</Text>
+          <Text style={styles.favoritestitle}>{this.props.navigation.state.params.user_name.toUpperCase()}'s Favorites</Text>
           <FlatList
             data={this.state.favorites}
             keyExtractor={(x, i) => i}
@@ -73,6 +87,12 @@ export default class Profile extends Component {
                   style={styles.linkButton}
                   onPress={() => Linking.openURL(item.url)} >
                   <Text style={styles.linkText}>Click Here For more Info</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.linkButton}
+                  onPress={this.deleteThis.bind(this)}
+                  >
+                  <Text style={styles.linkText}>Delete</Text>
                 </TouchableOpacity>
               </View>
             </View>}
@@ -113,8 +133,8 @@ const styles = StyleSheet.create({
   favoritescontainer: {
     borderWidth: 1,
     borderColor: 'black',
-    height: 450,
-    width: 250,
+    height: 550,
+    width: 350,
     borderRadius: 5
   },
   favoritestitle: {

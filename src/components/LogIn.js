@@ -9,6 +9,9 @@ import {StyleSheet,
     } from 'react-native';
 
 export default class LogIn extends Component {
+  static navigationOptions = {
+    title: 'Welcome',
+  };
 
   constructor(){
     super();
@@ -22,7 +25,7 @@ export default class LogIn extends Component {
 
   async loginUser(){
     try{
-      let response = await fetch('https://849e8859.ngrok.io/login', {
+      let response = await fetch('https://42df16e0.ngrok.io/login', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -39,7 +42,7 @@ export default class LogIn extends Component {
       console.log(res);
       if (response.status >= 200 && response.status < 300) {
         const {navigate} = this.props.navigation;
-        navigate('Profile', {user_id: JSON.parse(res).id})
+        navigate('Profile', {user_id: JSON.parse(res).id, user_name: JSON.parse(res).name})
       }
       else {
         let error = res;
@@ -111,7 +114,8 @@ const styles = StyleSheet.create({
     width: 300,
     marginBottom: 10,
     borderRadius: 8,
-    backgroundColor: '#ebeeec'
+    backgroundColor: '#ebeeec',
+    paddingLeft: 10
   },
   buttonContainer: {
     margin: 10,

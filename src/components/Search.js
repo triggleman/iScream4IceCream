@@ -15,6 +15,9 @@ import {
 import Profile from './Profile';
 
 export default class Search extends Component {
+  static navigationOptions = {
+    title: 'Search',
+  };
 
   constructor(){
     super()
@@ -25,7 +28,7 @@ export default class Search extends Component {
   }
 
   fetchData(value){
-    return fetch(`https://849e8859.ngrok.io/api?display_address=${value}`)
+    return fetch(`https://42df16e0.ngrok.io/api?display_address=${value}`)
     .then((res) => res.json())
     .then((resJson) => {
       this.setState((prevState) => {
@@ -42,7 +45,7 @@ export default class Search extends Component {
   async saveFavorites(item){
     console.log('clicked saved button');
     try {
-      let response = await fetch('https://849e8859.ngrok.io/favorites', {
+      let response = await fetch('https://42df16e0.ngrok.io/favorites', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -80,7 +83,6 @@ export default class Search extends Component {
         <TextInput
           style={styles.form}
           placeholder="city, state or zipcode"
-          autoCapitalize="none"
           autoCorrect={false}
           onChangeText={(val) => this.setState({locationName: val})}
           value={this.state.locationName}
@@ -134,25 +136,30 @@ const styles = StyleSheet.create({
   },
   form: {
     height: 40,
-    margin: 30,
     width: 300,
     borderRadius: 8,
     backgroundColor: '#ebeeec',
     textAlign: 'center',
-
+    marginBottom: 30,
+    marginTop: 30,
+    marginLeft: 35,
   },
   button: {
     margin: 10,
-    borderColor: '#adadad',
+    borderColor: 'black',
     borderWidth: 1,
-    borderRadius: 20,
-    width: 100,
+    borderRadius: 10,
+    width: 300,
     marginBottom: 20,
+    backgroundColor: 'black',
+    alignItems: 'center',
   },
   buttonText: {
     textAlign: 'center',
     fontSize: 15,
-    padding: 5
+    padding: 10,
+    color: 'white',
+    width: 100,
   },
   results: {
     margin: 7,
@@ -173,16 +180,17 @@ const styles = StyleSheet.create({
   },
   linkButton: {
     width: 175,
-    height: 25,
+    height: 30,
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 15,
     padding: 2,
     margin: 3,
+    justifyContent: 'center',
   },
   linkText: {
     textAlign: 'center',
     alignItems: 'center',
-
+    justifyContent: 'center',
   }
 });
