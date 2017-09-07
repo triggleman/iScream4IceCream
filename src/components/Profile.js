@@ -61,12 +61,12 @@ export default class Profile extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.search}>
-          <TouchableHighlight
-            onPress={() => navigate('Search', {user_id: this.props.navigation.state.params.user_id})}
+          <TouchableOpacity
+            onPress={() => navigate('Search', {user_id: this.props.navigation.state.params.user_id, user_name: this.props.navigation.state.params.user_name})}
             style={styles.buttonContainer}
             >
             <Text style={styles.buttonText}>Search</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
         <View style={styles.favoritescontainer}>
           <Text style={styles.favoritestitle}>{this.props.navigation.state.params.user_name.toUpperCase()}'s Favorites</Text>
@@ -115,12 +115,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     width: 300,
-    marginBottom: 20
+    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
     textAlign: 'center',
     fontSize: 20,
-    padding: 8
+    padding: 8,
+    width: 100
   },
   namecontainer: {
     borderWidth: 1,
@@ -155,16 +158,16 @@ const styles = StyleSheet.create({
   },
   linkButton: {
     width: 175,
-    height: 25,
+    height: 35,
     borderColor: 'black',
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 17,
     padding: 2,
     margin: 3,
+    justifyContent: 'center',
   },
   linkText: {
     textAlign: 'center',
     alignItems: 'center',
-
   }
 });

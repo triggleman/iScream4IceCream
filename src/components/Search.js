@@ -5,12 +5,12 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight,
   TextInput,
   FlatList,
   Image,
   Linking,
   TouchableOpacity,
+  KeyboardAvoidingView
 } from 'react-native';
 import Profile from './Profile';
 
@@ -74,56 +74,56 @@ export default class Search extends Component {
       }  catch(errors) {
     }
     const {navigate} = this.props.navigation;
-    navigate('Profile', {user_id: this.props.navigation.state.params.user_id});
+    navigate('Profile', {user_id: this.props.navigation.state.params.user_id, user_name: this.props.navigation.state.params.user_name});
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput
-          style={styles.form}
-          placeholder="city, state or zipcode"
-          autoCorrect={false}
-          onChangeText={(val) => this.setState({locationName: val})}
-          value={this.state.locationName}
-        />
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.fetchData.bind(this, this.state.locationName)}
-          >
-          <Text style={styles.buttonText}>Search</Text>
-        </TouchableHighlight>
-        <View style={styles.flatlist} >
-          <FlatList
-            data={this.state.list}
-            keyExtractor={(x, i) => i}
-            renderItem={({ item }) =>
-            <View style={styles.results}>
-              <View>
-                <Image  source={{uri: item.image_url}} style={{height: 70, width: 70, borderRadius: 35, marginRight: 5}}/>
-              </View>
-              <View>
-
-                <Text>{item.name}</Text>
-                <Text>{item.location.address1}, {item.location.city}, {item.location.state} {item.location.zip_code}</Text>
-                <Text>Phone: {item.display_phone}</Text>
-                <Text>Rating: {item.rating}</Text>
-                <TouchableOpacity
-                  style={styles.linkButton}
-                  onPress={() => Linking.openURL(item.url)} >
-                  <Text style={styles.linkText}>Click Here For more Info</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.linkButton}
-                  onPress={this.saveFavorites.bind(this, item)}>
-                  <Text style={styles.linkText}>Save !</Text>
-                </TouchableOpacity>
-              </View>
-            </View>}
+        <View style={styles.container}>
+          <TextInput
+            style={styles.form}
+            placeholder="City, State or Zipcode"
+            autoCorrect={false}
+            onChangeText={(val) => this.setState({locationName: val})}
+            value={this.state.locationName}
           />
-        </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.fetchData.bind(this, this.state.locationName)}
+            >
+            <Text style={styles.buttonText}>Search</Text>
+          </TouchableOpacity>
+          <View style={styles.flatlist} >
+            <FlatList
+              data={this.state.list}
+              keyExtractor={(x, i) => i}
+              renderItem={({ item }) =>
+              <View style={styles.results}>
+                <View>
+                  <Image  source={{uri: item.image_url}} style={{height: 70, width: 70, borderRadius: 35, marginRight: 5}}/>
+                </View>
+                <View>
 
-      </View>
+                  <Text>{item.name}</Text>
+                  <Text>{item.location.address1}</Text>
+                  <Text>{item.location.city}, {item.location.state} {item.location.zip_code}</Text>
+                  <Text>Phone: {item.display_phone}</Text>
+                  <Text>Rating: {item.rating}</Text>
+                  <TouchableOpacity
+                    style={styles.linkButton}
+                    onPress={() => Linking.openURL(item.url)} >
+                    <Text style={styles.linkText}>Click Here For more Info</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.linkButton}
+                    onPress={this.saveFavorites.bind(this, item)}>
+                    <Text style={styles.linkText}>Save !</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>}
+            />
+          </View>
+        </View>
     );
   }
 }
@@ -132,17 +132,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: 'rgb(255, 255, 255)'
   },
   form: {
+    marginTop: 20,
     height: 40,
     width: 300,
+    marginBottom: 5,
     borderRadius: 8,
     backgroundColor: '#ebeeec',
-    textAlign: 'center',
-    marginBottom: 30,
-    marginTop: 30,
-    marginLeft: 35,
+    paddingLeft: 10,
+    alignItems: 'center',
+    marginLeft: 55,
   },
   button: {
     margin: 10,
@@ -173,10 +175,9 @@ const styles = StyleSheet.create({
   },
   flatlist: {
     width: 350,
-    height: 450,
+    height: 500,
     backgroundColor: '#f0f0f0',
     borderRadius: 5,
-
   },
   linkButton: {
     width: 175,

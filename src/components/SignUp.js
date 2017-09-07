@@ -6,7 +6,7 @@ import {
   Text,
   StyleSheet,
   KeyboardAvoidingView,
-  TouchableHighlight,
+  TouchableOpacity,
   TextInput
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
@@ -97,11 +97,11 @@ async registerUser(){
             secureTextEntry={true}
             ref={(input) => this.passwordInput = input}
           />
-          <TouchableHighlight
+          <TouchableOpacity
             onPress={this.registerUser.bind(this)}
             style={styles.buttonContainer}>
             <Text style={styles.buttonText} >Sign Up</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     );
@@ -129,10 +129,13 @@ const styles = StyleSheet.create({
     borderColor: '#adadad',
     borderWidth: 1,
     borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
     textAlign: 'center',
     fontSize: 20,
-    padding: 8
+    padding: 8,
+    width: 100
   }
 });

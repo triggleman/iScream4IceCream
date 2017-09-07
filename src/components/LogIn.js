@@ -3,9 +3,9 @@ import {StyleSheet,
         View,
         Image,
         KeyboardAvoidingView,
-        TouchableHighlight,
         TextInput,
-        Text
+        Text,
+        TouchableOpacity
     } from 'react-native';
 
 export default class LogIn extends Component {
@@ -84,17 +84,17 @@ export default class LogIn extends Component {
             returnKeyType="go"
             ref={(input) => this.passwordInput = input}
           />
-          <TouchableHighlight
+          <TouchableOpacity
             onPress={this.loginUser.bind(this)}
             style={styles.buttonContainer} >
             <Text style={styles.buttonText} >Log In</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => navigate('Signup')}
             style={styles.buttonContainer}
             >
             <Text style={styles.buttonText}>Sign Up</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     );
@@ -123,11 +123,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     width: 300,
-    marginBottom: 20
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
     textAlign: 'center',
     fontSize: 20,
-    padding: 8
+    padding: 8,
+    width: 100
   }
 })
